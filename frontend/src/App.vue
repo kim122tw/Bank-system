@@ -8,7 +8,7 @@ const route = useRoute()
     <div class="header-container">
       <div class="brand">
         <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
-        <h1 class="page-title">我的銀行</h1>
+        <h1 class="page-title">QuickBank</h1>
       </div>
     </div>
 
