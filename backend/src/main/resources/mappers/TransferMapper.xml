@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.banking2.dao.TransferMapper">
+
+    <insert id="insertTransfer" parameterType="com.kim.banking2.model.Transfer">
+        INSERT INTO transfers (from_account, to_account, amount, created_at)
+        VALUES (#{fromAccount}, #{toAccount}, #{amount}, NOW());
+    </insert>
+
+    <select id="getTransfersByAccountId" parameterType="long" resultType="com.kim.banking2.model.Transfer">
+        SELECT * FROM transfers WHERE from_account = #{accountId} OR to_account = #{accountId}
+    </select>
+
+</mapper>

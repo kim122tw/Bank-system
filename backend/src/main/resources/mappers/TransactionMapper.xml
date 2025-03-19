@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.banking2.dao.TransactionMapper">
+
+    <insert id="insertTransaction" parameterType="com.kim.banking2.model.Transaction">
+        INSERT INTO transactions (account_id, transaction_type, amount, created_at)
+        VALUES (#{accountId}, #{transactionType}, #{amount}, NOW());
+    </insert>
+
+    <select id="getTransactionsByAccountId" parameterType="long" 
+    	resultType="com.kim.banking2.model.Transaction">
+        SELECT 
+		    transaction_id,
+		    account_id,
+		    amount,
+		    created_at,
+		    -- 使用 CASE WHEN 來轉換 transactionType 為中文
+		    CASE
+		      WHEN transaction_type = 'DEPOSIT' THEN '存款'
+		      WHEN transaction_type = 'WITHDRAW' THEN '取款'
+		      WHEN transaction_type = 'TRANSFERTO' THEN '金額轉入'
+		      WHEN transaction_type = 'TRANSFERFROM' THEN '金額轉出'
+		      ELSE transaction_type 
+		    END AS transaction_type
+		 FROM transactions
+		 WHERE account_id = #{accountId}
+    </select>
+
+</mapper>
